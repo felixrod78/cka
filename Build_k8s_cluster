@@ -1,0 +1,20 @@
+Cambiar hostnames
+Añadir entradas hostnames & logout
+En los 3, instalar containerd:
+  - containerd conf modprobe overlay para habilitarlo  y netfilter
+  - 99-kubernetes-cri.conf  configuraciones para la red    aplicar en los 3
+Instalar containerd
+Crear folder especifico  config.toml restart status
+Disable swap permanente fstab
+Instalar requerimientos curl http-transport
+Agregar key gpg para instalar repo k8s
+Instalamos 1.21.0 kubelet kubeadm kubectl  hold
+En control plane: kubeadm init con cloud_user  con cidr calico con version flag 
+Copiar comandos te da el output mkdir y demas
+Instalar calico en control plance
+Token create  para añadir workers, te da el token y agregarlos con sudo
+
+
+
+
+
