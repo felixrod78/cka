@@ -1,0 +1,20 @@
+- kubectl apply -f pod.yml  para crear pods desde archivo
+- kubectl expose web --port 80 --type NodePort  exponer el puerto 80 a traves de uno aleatorio
+    NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+    kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        98m
+    web          NodePort    10.109.126.28   <none>        80:32483/TCP   9s
+
+- kubectl drain node-name  para sacar de manera controlada un nodo del cluster 
+    --ignore-daemonsets -- servicios que corren especificamente en dicho nodo
+    - solo aplica a pods desplegados como job,replicaset,statefullset,replicationcontroller
+- kubectl uncordon <node-name>  para volver a agregar el nodo al cluster
+
+- Upgrade cluster:
+  - sudo apt-get update && \ sudo apt-get install -y --allow-change-held-packages kubeadm=1.21.1-00
+    kubectl drain control-plane node --ingnore-daemonset
+    kubeadm version
+    sudo kubeadm upgrade plan v.1.21.1 solo informa de los elementos a actualizar
+    sudo kubeadm apply plan 1.21.1
+    sudo apt-get install -y --allow-change-held-packages kubectl=1.21.1 kubelet 1.21.1
+    sudo systemctl daemon-reload && restart kubelet
+    kubectl uncordon control-plane node
