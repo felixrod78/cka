@@ -10,7 +10,7 @@ En los 3, instalar containerd:
    - modprobe overlay  netfilter para habilitarlo   Hecho
       sudo modprobe overlay
       sudo modprobe br_netfilter
-  
+      
   - 99-kubernetes-cri.conf  configuraciones para la red    aplicar en los 3 Hecho
       cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
       net.bridge.bridge-nf-call-iptables  = 1
