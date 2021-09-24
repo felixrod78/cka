@@ -11,10 +11,16 @@
 
 - Upgrade cluster:
   - sudo apt-get update && \ sudo apt-get install -y --allow-change-held-packages kubeadm=1.21.1-00
-    kubectl drain control-plane node --ingnore-daemonset
+    kubectl drain control-plane node --ingnore-daemonsets
     kubeadm version
     sudo kubeadm upgrade plan v.1.21.1 solo informa de los elementos a actualizar
-    sudo kubeadm apply plan 1.21.1
+    kubeadm upgrade apply v1.21.1
     sudo apt-get install -y --allow-change-held-packages kubectl=1.21.1 kubelet 1.21.1
     sudo systemctl daemon-reload && restart kubelet
     kubectl uncordon control-plane node
+
+- Bck etcd: 
+  -  Para realizar un bck:
+      ETCDCTL_API=3 etcdtl --endpoints $ENDPOINT snapshot save <filename>
+      Para realizar un restore:
+      ETCDCTL_API=3 etcdtl snapshot restore  <filename>
