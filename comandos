@@ -2,10 +2,14 @@
   get: listar objetos en el cluster  -o para formato salida --sort-by formato salida json --selector  filtra los resultados
   describe: informacion extensiva
   create: crear objetos -f desde archivo
+    --dry-run no crea nada
+     -o  yaml >file.yaml exporta la creacion de un objeto k8s a un archivo
   apply: igual a create pero permite aplicar sobre un objeto ya creado
   exec: ejecutar comandos dentro del container -c indica el contenedor especifico dentro del pod
   delete: borra objetos
-  api-resourcestype : ves todos los recursos del cluster
+  api-resources : ves todos los recursos del cluster
+
+  kubect example --record  graba este comando y lo puedes ver con describe en el objeto creado
 
 
 
