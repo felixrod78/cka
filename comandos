@@ -1,3 +1,14 @@
+-kubect:
+  get: listar objetos en el cluster  -o para formato salida --sort-by formato salida json --selector  filtra los resultados
+  describe: informacion extensiva
+  create: crear objetos -f desde archivo
+  apply: igual a create pero permite aplicar sobre un objeto ya creado
+  exec: ejecutar comandos dentro del container -c indica el contenedor especifico dentro del pod
+  delete: borra objetos
+  api-resourcestype : ves todos los recursos del cluster
+
+
+
 - kubectl apply -f pod.yml  para crear pods desde archivo
 - kubectl expose web --port 80 --type NodePort  exponer el puerto 80 a traves de uno aleatorio
     NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
@@ -21,6 +32,43 @@
 
 - Bck etcd: 
   -  Para realizar un bck:
+      ETCDCTL_API=3 etcdctl get cluster.name \
+      > --endpoints=https://10.0.1.101:2379 \
+      > --cacert=/home/cloud_user/etcd-certs/etcd-ca.pem \
+      >  --cert=/home/cloud_user/etcd-certs/etcd-server.crt \
+      >  --key=/home/cloud_user/etcd-certs/etcd-server.key 
+      cluster.name
+      beebox
+
+      ETCDCTL_API=3 etcdctl snapshot save etcd_backup.db \
+      > --endpoints=https://10.0.1.101:2379 \
+      > --cacert=/home/cloud_user/etcd-certs/etcd-ca.pem \
+      >  --cert=/home/cloud_user/etcd-certs/etcd-server.crt \
+      >  --key=/home/cloud_user/etcd-certs/etcd-server.key
+
+      ETCDCTL_API=3 etcdctl snapshot restore  etcd_backup.db \
+      > --initial-cluster etcd-restore=https://10.0.1.101:2380 \
+      > --initial-advertise-peer-urls https://10.0.1.101:2380  \
+      > --name etcd-restore \
+      >  --data-dir /var/lib/etcd/
+      
+   
+       
+   
+   
+   
+   
+
+
+      
+   
+   
+   
+   
+
+      ETCDCTL_API=3 etcdctl get cluster.name  --endpoints=https://10.0.1.101:2379 --cacert=etcd-ca.pem --cert=etcd-server.crt --key=etcd-server.key
+      
+      
       ETCDCTL_API=3 etcdtl --endpoints $ENDPOINT snapshot save <filename>
       Para realizar un restore:
       ETCDCTL_API=3 etcdtl snapshot restore  <filename>

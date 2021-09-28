@@ -1,0 +1,26 @@
+Get a List of Persistent Volumes Sorted by Capacity
+  kubectl get pv --sort-by=.spec.capacity.storage -A
+  NAME         CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+  pv0002       1Gi        RWO            Retain           Available           manual                  79s
+  audit-logs   2Gi        RWO            Retain           Available           manual                  79s
+  pv0003       3Gi        RWO            Retain           Available           manual                  78s
+
+Run a Command Inside the `quark` Pod's Container to Obtain a Key Value
+  kubectl get pods -n beebox-mobile
+  NAME    READY   STATUS    RESTARTS   AGE
+  quark   1/1     Running   0          2m55s
+  kubectl exec  quark -n beebox-mobile  cat /etc/key/key.txt > /home/cloud_user/key.txt
+
+Create a Deployment Using a Spec File
+  kubectl apply -f /home/cloud_user/deployment.yml 
+  deployment.apps/nginx-deployment created
+
+Delete the `beebox-auth` Service
+  kubectl get services -A
+  NAMESPACE       NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                  AGE
+  beebox-mobile   beebox-auth-svc   ClusterIP   10.101.165.51   <none>        80/TCP                   10m
+  default         kubernetes        ClusterIP   10.96.0.1       <none>        443/TCP                  11m
+  kube-system     kube-dns          ClusterIP   10.96.0.10      <none>        53/UDP,53/TCP,9153/TCP   11m
+  kubectl delete service beebox-auth-svc -n beebox-mobile
+  service "beebox-auth-svc" deleted
+
