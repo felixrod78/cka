@@ -1,5 +1,6 @@
--kubect:
+-kubectl:
   get: listar objetos en el cluster  -o para formato salida --sort-by formato salida json --selector  filtra los resultados
+    sa: te pinta los services account creados
   describe: informacion extensiva
   create: crear objetos -f desde archivo
     --dry-run no crea nada
@@ -9,7 +10,7 @@
   delete: borra objetos
   api-resources : ves todos los recursos del cluster
 
-  kubect example --record  graba este comando y lo puedes ver con describe en el objeto creado
+  kubectl example --record  graba este comando y lo puedes ver con describe en el objeto creado
 
 
 
@@ -55,8 +56,11 @@
       > --initial-advertise-peer-urls https://10.0.1.101:2380  \
       > --name etcd-restore \
       >  --data-dir /var/lib/etcd/
-      
-   
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml  instalacion metrics server  
+kubectl get --raw /apis/metrics.k8s.io/ nos devuelve un json con la version del metrics-server 
+kubectl top pod POD_NAME --sort-by=cpu   para ver metricas y ordenarlos por CPU en este caso o filtrar por labels tipo --selector
+kubectl top node  ver status de los nodos de las maquinas
+kubectl top pod -n beebox-mobile --selector=app=auth --sort-by=cpu
        
    
    
