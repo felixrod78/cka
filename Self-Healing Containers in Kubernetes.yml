@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/podIP: 192.168.194.66/32
+    cni.projectcalico.org/podIPs: 192.168.194.66/32
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"beebox-shipping-data","namespace":"default"},"spec":{"containers":[{"image":"linuxacademycontent/random-crashing-web-server:1","name":"shipping-data"}],"restartPolicy":"Never"}}
+  creationTimestamp: "2021-10-14T06:16:50Z"
+  name: beebox-shipping-data
+  namespace: default
+  resourceVersion: "823"
+  uid: f180983f-477a-4e8d-b32e-76ad16bafa02
+spec:
+  containers:
+  - image: linuxacademycontent/random-crashing-web-server:1
+    imagePullPolicy: IfNotPresent
+    name: shipping-data
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-krktk
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: k8s-worker1
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-krktk
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-14T06:17:02Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-14T06:17:26Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-14T06:17:26Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2021-10-14T06:17:01Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://34dcf168a03704552062d9b9315909c76cf6e9eed27338d2422018d5f635bbd5
+    image: docker.io/linuxacademycontent/random-crashing-web-server:1
+    imageID: docker.io/linuxacademycontent/random-crashing-web-server@sha256:961fb2f1241af9bd1de39d62aaac28a55fa0ec215b86a0c1f67c49a13cbcd0e2
+    lastState: {}
+    name: shipping-data
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2021-10-14T06:17:25Z"
+  hostIP: 10.0.1.102
+  phase: Running
+  podIP: 192.168.194.66
+  podIPs:
+  - ip: 192.168.194.66
+  qosClass: BestEffort
+  startTime: "2021-10-14T06:17:02Z"
