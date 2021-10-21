@@ -61,7 +61,8 @@ kubectl get --raw /apis/metrics.k8s.io/ nos devuelve un json con la version del 
 kubectl top pod POD_NAME --sort-by=cpu   para ver metricas y ordenarlos por CPU en este caso o filtrar por labels tipo --selector
 kubectl top node  ver status de los nodos de las maquinas
 kubectl top pod -n beebox-mobile --selector=app=auth --sort-by=cpu
-       
+kubectl label node k8s-worker1 ap2=my-daemonset   aplicar labels a nodos del cluster
+      
    
    
    

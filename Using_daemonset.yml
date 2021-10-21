@@ -1,0 +1,146 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: my-daemonset
+  template:
+    metadata:
+      labels:
+        app: my-daemonset
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.27
+        command: ['sh', '-c', 'while true; do rm -rf /beebox-temp/*; sleep 60; done']
+        volumeMounts:
+        - name: beebox-tmp
+          mountPath: /beebox-temp
+      volumes:
+      - name: beebox-tmp
+        hostPath:
+          path: /etc/beebox/tmp
+
+kubectl label node k8s-worker1 ap2=my-daemonset
+kubectl get pods -o wide
+NAME                 READY   STATUS    RESTARTS   AGE   IP               NODE          NOMINATED NODE   READINESS GATES
+my-daemonset-6tfpq   1/1     Running   0          13s   192.168.126.1    k8s-worker2   <none>           <none>
+my-daemonset-j28rr   1/1     Running   0          13s   192.168.194.65   k8s-worker1   <none>           <none>
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+      
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+
+
+
+
+
+
+      
+      
