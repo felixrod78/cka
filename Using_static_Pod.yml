@@ -1,0 +1,17 @@
+cd /etc/kubernetes/manifests
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-static
+spec:
+  containers:
+  - name: acgorg
+    image: acgorg/beebox-diagnostic:1
+
+Restart kubelet     
+
+Desde el control plane
+kubectl get pods
+NAME                    READY   STATUS    RESTARTS   AGE
+my-static-k8s-worker1   1/1     Running   0          21s
