@@ -11,6 +11,10 @@
   api-resources : ves todos los recursos del cluster
   edit deployment my-deployment  abre tu yml de deployment con otros valores y puedes cambiar replicas (modulo spec no status)
   scale deployment.v1.apps/my-deployment --replicas=3  comando para escalar
+  rollout status deployment deployment.v1.apps/my-deployment para ver el status de tu rolling upgrade
+  rollout history deployment deployment.v1.apps/my-deployment  ves los comandos ejecutados y grabados gracias a --record
+  rollout undodeployment.v1.apps/my-deployment  --record  para hacer rollback
+  set image deployment/my-deploymen nginx=nginx:xxx(version deseada) --record
   kubectl example --record  graba este comando y lo puedes ver con describe en el objeto creado
 
 
