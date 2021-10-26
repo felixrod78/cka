@@ -1,0 +1,14 @@
+Deployment_changes
+
+kubectl get deployments
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+beebox-web   5/5     5            5           15m
+
+kubectl edit deployment beebox-web
+kubectl get pods -o wide 
+kubectl describe beebox-web-67fd7fb7b-4s878
+
+
+
+
+
