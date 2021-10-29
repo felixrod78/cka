@@ -16,6 +16,7 @@
   rollout undodeployment.v1.apps/my-deployment  --record  para hacer rollback
   set image deployment/my-deploymen nginx=nginx:xxx(version deseada) --record
   kubectl example --record  graba este comando y lo puedes ver con describe en el objeto creado
+  kubectl  get pod testclient -n default -o yaml > service.yaml   exporta a yaml tu elemento de k8s
 
 
 
