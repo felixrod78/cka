@@ -1,0 +1,53 @@
+SERVICIO TIPO CLUSTERIP
+
+app: user-db
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  type: ClusterIP
+  selector:
+    app: user-db
+  ports:
+    - protocol: TCP   Siempre que sea el mismo puerto port y target port!!!
+      port: 800
+      targetPort: 800
+
+k get ep para saber las ips y puertos expuestos en los servicios
+
+creamos un pod con curl o nslookup para comprobar
+kubectl run curl --image=radial/busyboxplus:curl -i --tty
+cloud_user@k8s-control:~$ k get ep 
+NAME         ENDPOINTS                             AGE
+kubernetes   10.0.1.101:6443                       74m
+my-service   192.168.194.65:80,192.168.194.67:80   7s
+cloud_user@k8s-control:~$ kubectl run curl --image=radial/busyboxplus:curl -i --tty
+If you don't see a command prompt, try pressing enter.
+[ root@curl:/ ]$ nslookup my-service
+Server:    10.96.0.10
+Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      my-service
+Address 1: 10.111.230.127 my-service.default.svc.cluster.local
+[ root@curl:/ ]$ curl 192.168.194.65:80
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</titl
+
+
+SERVICIO TIPO NODEPORT
+
+ app: web-frontend
+
+kubectl expose deployments web-frontend  --type=NodePort --name=example-service
+
+
+deployment   app: user-db
+containerport 80
+kubectl expose deployment web-frontend --type=NodePort --name=frontend-service --port=80 --target-port=80 --dry-run -o yaml
+app: web-frontend
+
+
