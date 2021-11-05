@@ -1,6 +1,7 @@
 -kubectl:
   get: listar objetos en el cluster  -o para formato salida --sort-by formato salida json --selector  filtra los resultados
     sa: te pinta los services account creados
+    endpoints service name  te da los endpoints de escucha de tu servicio
   describe: informacion extensiva
   create: crear objetos -f desde archivo
     --dry-run no crea nada

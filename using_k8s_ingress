@@ -1,0 +1,24 @@
+
+app=web-auth
+
+--selector="app=web-auth"
+
+kubectl expose deployment web-auth --type=NodePort --name=service --port=80 --selector="app=web-auth"
+
+kubectl expose deployment web-auth --type=NodePort --name=service --port=80 --selector="app=web-auth" --dry-run=client -o yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: web-auth
+  type: NodePort
+status:
+  loadBalancer: {}
