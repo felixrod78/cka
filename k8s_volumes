@@ -1,0 +1,63 @@
+Pod That Outputs Data to the Host Using a Volume
+
+kubectl run busybox --image=busybox   --dry-run=client -o yaml > pod.yaml                   # Run pod nginx and write its spec into a file called pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    command: ['sh','-c','while true; do echo felix >> /data-output/test.txt  ; sleep 5;done']
+    name: nginx
+    volumeMounts:
+    - mountPath: /data-output
+      name: test-volume
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data
+
+
+
+Create a Multi-Container Pod That Shares Data Between Containers Using a Volume
+
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: multi-nginx
+spec:
+  containers:
+  - image: nginx
+    command: ['sh','-c','while true; do echo felix >> /data-output/test1.txt  ; sleep 5;done']
+    name: nginx
+    volumeMounts:
+    - mountPath: /data-output
+      name: test-volume
+  - image: nginx
+    command: ['sh','-c','while true; do cat  /data-input/test1.txt  ; sleep 5;done']
+    name: nginx-1
+    volumeMounts:
+    - mountPath: /data-input
+      name: test-volume    
+  volumes:
+  - name: test-volume
+    hostPath:
+      # directory location on host
+      path: /data    
+
+
+Para comprobar:
+Container 1 , vas a la maquina donde corra el pod y compriebas esta el archivo  /data-output/test1.txt
+Container 2, ves la accion de lectura k logs multi-nginx nginx-1
+
+
+

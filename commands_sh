@@ -1,0 +1,2 @@
+command: ['sh', '-c', 'while true; do echo Success! >> /output/output.txt; sleep 5; done']    doble barra escribe nueva linea
+command: ['sh','-c','while true; do touch "$(date +"%I_%M_%r_")felix.log > /data/ ; sleep 5;done']  archivo con fecha en el noombre
