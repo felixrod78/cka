@@ -23,3 +23,49 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
   hostPath:
     path: "/mnt/data"
+
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+cloud_user@k8s-control:~$ kubectl get pvc
+NAME    CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                   STORAGECLASS    REASON   AGE
+my-pv   1Gi        RWO            Recycle          Bound    default/task-pv-claim   local-storage            110s
+
+cloud_user@k8s-control:~$ kubectl get pvc
+NAME            STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS    AGE
+task-pv-claim   Bound    my-pv    1Gi        RWO            local-storage   48s
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: busybox
+      image: busybox
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do echo felix >> output/data/test.txt ; sleep 5;done"]
+      volumeMounts:
+        - mountPath: "output/data/"
+          name: task-pv-storage
+
+
+
+
+
+
