@@ -1,0 +1,30 @@
+Determine What is Wrong with the Cluster
+
+cloud_user@k8s-worker2:~$ systemctl status kubelet
+● kubelet.service - kubelet: The Kubernetes Node Agent
+   Loaded: loaded (/lib/systemd/system/kubelet.service; disabled; vendor preset: enabled)
+  Drop-In: /etc/systemd/system/kubelet.service.d
+           └─10-kubeadm.conf
+   Active: inactive (dead)
+     Docs: https://kubernetes.io/docs/home/
+
+cloud_user@k8s-worker2:~$ sudo  systemctl start  kubelet
+[sudo] password for cloud_user: 
+cloud_user@k8s-worker2:~$ sudo  systemctl enable   kubelet
+Created symlink /etc/systemd/system/multi-user.target.wants/kubelet.service → /lib/systemd/system/kubelet.service.
+cloud_user@k8s-worker2:~$ k get pods -n kube-system
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+cloud_user@k8s-worker2:~$ systemctl status kubelet
+● kubelet.service - kubelet: The Kubernetes Node Agent
+   Loaded: loaded (/lib/systemd/system/kubelet.service; enabled; vendor preset: enabled)
+  Drop-In: /etc/systemd/system/kubelet.service.d
+           └─10-kubeadm.conf
+   Active: active (running) since Thu 2021-11-11 08:11:00 UTC; 52s ago
+     Docs: https://kubernetes.io/docs/home/
+ Main PID: 3067 (kubelet)
+    Tasks: 14 (limit: 4617)
+   CGroup: /system.slice/kubelet.service
+           └─3067 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.y
+lines 1-10/10 (END)
+
+
