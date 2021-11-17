@@ -1,0 +1,10 @@
+Count the Number of Nodes That Are Ready to Run Normal Workloads
+worker nodes
+
+Retrieve Error Messages from a Container Log
+k logs podname -c Container
+Find the Pod That Is Utilizing the Most CPU within a Namespace
+kubectl top pod -n web --sort-by cpu --selector app=auth
+
+
+
